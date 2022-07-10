@@ -1,6 +1,6 @@
 # ArcCommander
 
-ArcCommander is a command line tool to create, manage and share your ARCs.
+ArcCommander is a command line tool to create, manage and share your ARCs. 
 
 ## Install and start
 
