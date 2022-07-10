@@ -79,7 +79,8 @@ jobs:
         security unlock-keychain -p password build.keychain
         security import certificate.p12 -k build.keychain -P $APPLE_CERTIFICATE_PWD -T /usr/bin/codesign
         security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain
-        /usr/bin/codesign --force -s " publish/osx-x64/arc -v      
+        security find-identity -v
+        /usr/bin/codesign --force -s F1C90BA72457317906E392CB3F348F5C9FAC3821 publish/osx-x64/arc -v      
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
