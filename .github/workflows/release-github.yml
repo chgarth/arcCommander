@@ -68,7 +68,7 @@ jobs:
       run: dotnet tool restore
     - name: Build and publish
       run: dotnet fake build -t publishBinariesMac
-    - name: Codesign
+    - name: Package, Sign and Notarize
       env: 
         APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
         APPLE_CERTIFICATE_PWD: ${{ secrets.APPLE_CERTIFICATE_PWD }}
@@ -113,4 +113,4 @@ jobs:
         title: "v0.3.2-osx.x64"
         files: |
             src/ArcCommander/config_unix/config
-            publish/osx-x64/arc
+            arc.dmg
