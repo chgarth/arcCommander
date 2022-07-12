@@ -101,9 +101,6 @@ jobs:
           volume_name = "arcCommander"
         }
         EOF
-        echo "-------------------"
-        cat arc.hcl
-        echo "-------------------"
         gon -log-level info arc.hcl
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -113,4 +110,4 @@ jobs:
         title: "v0.3.2-osx.x64"
         files: |
             src/ArcCommander/config_unix/config
-            arc.dmg
+            arcCommander.dmg
