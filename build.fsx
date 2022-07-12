@@ -275,7 +275,15 @@ module PackageTasks =
                             Properties = [
                                 "Version", stableVersionTag
                                 "Platform", "x64"
+                                "PublishTrimmed", "true"
+                                "PublishReadyToRun", "false"
                                 "PublishSingleFile", "true"
+                                "SelfContained", "true"
+                                "IncludeNativeLibrariesForSelfExtract", "true"
+                                "IncludeSymbolsInSingleFile", "false"
+                                "EnableCompressionInSingleFile", "false"
+                                "DebugType", "embedded"
+                                "UseAppHost", "true"                                
                             ]
                     }
             }
