@@ -95,7 +95,7 @@ jobs:
         }
         sign {
           application_identity = "Developer ID Application: Christoph Garth (SF7W7AFY92)"
-          entitlements_file = "entitlements.plist"
+          entitlements_file = "fubarbaz.plist"
         }
         dmg {
           output_path = "arcCommander.dmg"
@@ -106,7 +106,7 @@ jobs:
         }
         EOF
         cat <<EOF > entitlements.plist
-        <?xml version="1.0" encoding="UTF-8"?>
+        <?yml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
         <plist version="1.0">
           <dict>
