@@ -101,7 +101,7 @@ jobs:
           volume_name = "arcCommander"
         }
         zip {
-          output_path = "arcCommander.zip'
+          output_path = "arcCommander.zip"
         }
         EOF
         gon -log-level info arc.hcl
