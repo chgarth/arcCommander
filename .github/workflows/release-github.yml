@@ -95,7 +95,7 @@ jobs:
         }
         sign {
           application_identity = "Developer ID Application: Christoph Garth (SF7W7AFY92)"
-          entitlements_file = "fubarbaz.plist"
+          entitlements_file = "entitlements.plist"
         }
         dmg {
           output_path = "arcCommander.dmg"
