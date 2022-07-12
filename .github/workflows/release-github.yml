@@ -100,6 +100,9 @@ jobs:
           output_path = "arcCommander.dmg"
           volume_name = "arcCommander"
         }
+        zip {
+          output_path = "arcCommander.zip'
+        }
         EOF
         gon -log-level info arc.hcl
     - uses: "marvinpinto/action-automatic-releases@latest"
