@@ -84,7 +84,7 @@ jobs:
         security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain
         security find-identity -v
         brew install mitchellh/gon/gon create-dmg
-        echo <<EOF >arc.hcl
+        cat <<EOF >arc.hcl
         source = [ 
           "publish/osx-x64/arc" 
         ]
@@ -101,7 +101,9 @@ jobs:
           volume_name = "arcCommander"
         }
         EOF
+        echo "-------------------"
         cat arc.hcl
+        echo "-------------------"
         gon -log-level info arc.hcl
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
