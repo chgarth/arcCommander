@@ -83,30 +83,9 @@ jobs:
         security import certificate.p12 -k build.keychain -P $APPLE_CERTIFICATE_PWD -T /usr/bin/codesign
         security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain
         security find-identity -v
-        brew install mitchellh/gon/gon create-dmg
-        cat <<EOF >arc.hcl
-        source = [ 
-          "publish/osx-x64/arc" 
-        ]
-        bundle_id = "org.nfdi4plants.arccommander"
-        apple_id {
-          username = "${APPLE_DEVELOPER_EMAIL}"
-          password = "${APPLE_DEVELOPER_PWD}"
-        }
-        sign {
-          application_identity = "Developer ID Application: Christoph Garth (SF7W7AFY92)"
-          entitlements_file = "entitlements.plist"
-        }
-        dmg {
-          output_path = "arcCommander.dmg"
-          volume_name = "arcCommander"
-        }
-        zip {
-          output_path = "arcCommander.zip"
-        }
-        EOF
+        # sign binary
         cat <<EOF > entitlements.plist
-        <?yml version="1.0" encoding="UTF-8"?>
+        <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
         <plist version="1.0">
           <dict>
@@ -115,13 +94,14 @@ jobs:
           </dict>
         </plist>
         EOF
-        gon -log-level info arc.hcl
+        codesign -s "Developer ID Application" -f -v --timestamp --options runtime --entitlements entitlements.plist publish/osx-x64/arc
+        # create ZIP archive
+        ditto -ckVX -rsrc --sequesterRsrc --zlibCompressionLevel 9 publish/osx-x64 arc-macos.zip
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "v0.3.2-osx.x64"
+        automatic_release_tag: "v0.3.2-linux.x64"
         prerelease: false
-        title: "v0.3.2-osx.x64"
+        title: "v0.3.2-linux.x64"
         files: |
-            src/ArcCommander/config_unix/config
-            arcCommander.dmg
+          arc-macos.zip
