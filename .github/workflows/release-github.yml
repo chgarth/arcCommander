@@ -95,12 +95,11 @@ jobs:
         </plist>
         EOF
         codesign -s "Developer ID Application" -f -v --timestamp --options runtime --entitlements entitlements.plist publish/osx-x64/arc
-        # create ZIP archive
-        ditto -ckVX -rsrc --sequesterRsrc --zlibCompressionLevel 9 publish/osx-x64 arc-macos.zip
-    - name: "Notarize ZIP"
+
+    - name: "Notarize binary"
       uses: devbotsxyz/xcode-notarize@v1 
       with:
-        product-path: arc-macos.zip
+        product-path: publish/osx-x64/arc
         appstore-connect-username: ${{ secrets.APPLE_DEVELOPER_EMAIL }}
         appstore-connect-password: ${{ secrets.APPLE_DEVELOPER_PWD }}
         primary-bundle-id: 'org.nfdi4plants.arc'
@@ -108,8 +107,11 @@ jobs:
     - name: "Staple Release Build"
       uses: devbotsxyz/xcode-staple@v1
       with:
-        product-path: arc-macos.zip
-        
+        product-path: publish/osx-x64/arc
+
+    - name: "Zip Binary"
+      run: ditto -ckVX -rsrc --sequesterRsrc --zlibCompressionLevel 9 publish/osx-x64 arc-macos.zip
+
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
